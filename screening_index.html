@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSAF App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': {
+                            50: '#ecfeff',
+                            100: '#cffafe', 
+                            200: '#a5f3fc',
+                            300: '#67e8f9',
+                            400: '#22d3ee',
+                            500: '#06b6d4',
+                            600: '#0891b2',
+                            700: '#0e7490',
+                            800: '#155e75',
+                            900: '#164e63'
+                        },
+                        'secondary': {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95'
+                        },
+                        'accent': {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            200: '#fed7aa',
+                            300: '#fdba74',
+                            400: '#fb923c',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                            800: '#9a3412',
+                            900: '#7c2d12'
+                        },
+                        'success': {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans leading-relaxed">
+    <!-- Header -->
+    <header class="bg-gradient-to-br from-success-500 via-success-600 to-success-700 text-white shadow-2xl relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <svg class="w-full h-full" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+                        <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" stroke-width="0.5"/>
+                    </pattern>
+                </defs>
+                <rect width="100" height="100" fill="url(#grid)" />
+            </svg>
+        </div>
+        
+        <div class="container mx-auto px-4 py-12 relative z-10">
+            <div class="text-center max-w-4xl mx-auto">
+                <div class="inline-flex items-center justify-center w-20 h-20 bg-white bg-opacity-20 rounded-2xl mb-6 backdrop-blur-sm">
+                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </div>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 bg-gradient-to-r from-white to-success-100 bg-clip-text text-transparent">
+                    PSAF
+                </h1>
+                <p class="text-success-100 text-xl md:text-2xl opacity-90 font-medium">
+                    Comprehensive Health Screening Tool
+                </p>
+                <div class="mt-8 flex justify-center">
+                    <a href="index.html" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-6 py-3 rounded-full backdrop-blur-sm transition-all duration-300 font-semibold">
+                        ← Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-12 max-w-4xl">
+        <div class="bg-white rounded-2xl shadow-xl border border-slate-200 p-8 md:p-10 lg:p-12 relative overflow-hidden">
+            <!-- Decorative Background -->
+            <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-success-100 to-secondary-100 rounded-full -translate-y-16 translate-x-16 opacity-50"></div>
+            
+            <form id="prediction-form" class="relative z-10">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Age -->
+                    <div class="form-group">
+                        <label for="age" class="block text-sm font-semibold text-slate-700 mb-2">Age:</label>
+                        <input type="number" id="age" value="50" class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300">
+                    </div>
+
+                    <!-- Ethnicity -->
+                    <div class="form-group">
+                        <label for="ethnicity" class="block text-sm font-semibold text-slate-700 mb-2">Ethnicity:</label>
+                        <select id="ethnicity" class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300">
+                            <option value="1">Akan</option>
+                            <option value="2">Ga</option>
+                            <option value="3">Ewe</option>
+                            <option value="4">Northern</option>
+                            <option value="5">Other West African</option>
+                            <option value="6">Other Non-West African</option>
+                            <option value="7">European/Asian/American</option>
+                        </select>
+                    </div>
+
+                    <!-- Socioeconomic Status -->
+                    <div class="form-group">
+                        <label for="ses" class="block text-sm font-semibold text-slate-700 mb-2">Socioeconomic Status:</label>
+                        <select id="ses" class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300">
+                            <option value="1">Low SES</option>
+                            <option value="2">High SES</option>
+                            <option value="3">Retired</option>
+                            <option value="4">Not Stated</option>
+                        </select>
+                    </div>
+
+                    <!-- Activity Level -->
+                    <div class="form-group">
+                        <label for="act" class="block text-sm font-semibold text-slate-700 mb-2">Activity Level:</label>
+                        <select id="act" class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300">
+                            <option value="1">Sedentary</option>
+                            <option value="2">Non-Sedentary</option>
+                            <option value="3">Retired/NA</option>
+                        </select>
+                    </div>
+
+                    <!-- Weight -->
+                    <div class="form-group">
+                        <label for="weight" class="block text-sm font-semibold text-slate-700 mb-2">Weight (kg):</label>
+                        <input type="number" id="weight" value="70" step="0.1" class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300">
+                    </div>
+
+                    <!-- Height -->
+                    <div class="form-group">
+                        <label for="height" class="block text-sm font-semibold text-slate-700 mb-2">Height (m):</label>
+                        <input type="number" id="height" value="1.75" step="0.01" class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300">
+                    </div>
+
+                    <!-- Family History -->
+                    <div class="form-group">
+                        <label for="fmh" class="block text-sm font-semibold text-slate-700 mb-2">Family History:</label>
+                        <select id="fmh" class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300">
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+
+                    <!-- Alcohol Use -->
+                    <div class="form-group">
+                        <label for="alc" class="block text-sm font-semibold text-slate-700 mb-2">Alcohol Use:</label>
+                        <select id="alc" class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300">
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+
+                    <!-- Tobacco Use -->
+                    <div class="form-group">
+                        <label for="tbc" class="block text-sm font-semibold text-slate-700 mb-2">Tobacco Use:</label>
+                        <select id="tbc" class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300">
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+
+                    <!-- PSA Diagnosis -->
+                    <div class="form-group">
+                        <label for="psaDiagnosis" class="block text-sm font-semibold text-slate-700 mb-2">PSA at Diagnosis:</label>
+                        <input type="number" id="psaDiagnosis" value="5" step="0.1" class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300">
+                    </div>
+                </div>
+
+                <button type="button" class="w-full mt-8 bg-gradient-to-r from-success-500 to-success-600 hover:from-success-600 hover:to-success-700 text-white font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" onclick="calculatePrediction()">
+                    Predict
+                </button>
+
+                <div class="result mt-8 bg-slate-50 rounded-xl p-6" id="result"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="fixed inset-0 bg-white bg-opacity-95 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500 ease-in-out">
+        <div class="text-center">
+            <div class="relative mb-6">
+                <div class="w-20 h-20 mx-auto bg-gradient-to-br from-primary-500 to-secondary-500 rounded-full flex items-center justify-center animate-pulse shadow-2xl">
+                    <svg class="w-10 h-10 text-white animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                </div>
+                <div class="absolute inset-0 w-20 h-20 mx-auto border-4 border-transparent border-t-primary-500 rounded-full animate-spin"></div>
+            </div>
+            <h3 class="text-xl font-semibold text-slate-800 mb-2">Loading Health Tool</h3>
+            <p class="text-slate-600">Preparing your wellness companion...</p>
+            <div class="w-64 h-2 bg-slate-200 rounded-full mt-4 mx-auto overflow-hidden">
+                <div id="progressBar" class="h-full bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full transform -translate-x-full transition-transform duration-2000 ease-out"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculatePrediction() {
+            const age = parseFloat(document.getElementById("age").value);
+            const ethnicity = parseInt(document.getElementById("ethnicity").value);
+            const ses = parseInt(document.getElementById("ses").value);
+            const act = parseInt(document.getElementById("act").value);
+            const weight = parseFloat(document.getElementById("weight").value);
+            const height = parseFloat(document.getElementById("height").value);
+            const fmh = parseInt(document.getElementById("fmh").value);
+            const alc = parseInt(document.getElementById("alc").value);
+            const tbc = parseInt(document.getElementById("tbc").value);
+            const psaDiagnosis = parseFloat(document.getElementById("psaDiagnosis").value);
+
+            const bmi = weight / (height ** 2);
+            const logOdds = 1.3040 + (0.1026 * age) + (0.0060 * ethnicity) + (-0.2003 * ses) + (0.0890 * act) +
+                            (0.0100 * weight) + (-1.7798 * height) + (-0.1927 * bmi) + (-0.1924 * fmh) + 
+                            (0.1090 * alc) + (0.3973 * tbc) + (0.0001 * psaDiagnosis);
+
+            const probability = 1 / (1 + Math.exp(-logOdds));
+            const prediction = probability >= 0.52 ? "Higher likelihood of PSA resolution at 50%" : "Lower likelihood of PSA resolution at 50%";
+
+            document.getElementById("result").innerHTML = `
+                <div class="space-y-4">
+                    <div class="bg-white rounded-lg p-4 border border-slate-200">
+                        <h3 class="font-semibold text-slate-800 mb-2">Probability</h3>
+                        <p class="text-2xl font-bold text-success-600">${(probability * 100).toFixed(2)}%</p>
+                    </div>
+                    <div class="bg-white rounded-lg p-4 border border-slate-200">
+                        <h3 class="font-semibold text-slate-800 mb-2">Prediction</h3>
+                        <p class="text-slate-600">${prediction}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Page transition functionality
+        class PageTransition {
+            constructor() {
+                this.overlay = document.getElementById('loadingOverlay');
+                this.progressBar = document.getElementById('progressBar');
+                this.init();
+            }
+
+            init() {
+                const navLinks = document.querySelectorAll('a[href$=".html"]');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', (e) => this.handleLinkClick(e));
+                });
+
+                window.addEventListener('pageshow', (e) => {
+                    if (e.persisted) {
+                        this.hideLoading();
+                    }
+                });
+
+                window.addEventListener('load', () => {
+                    this.hideLoading();
+                });
+            }
+
+            handleLinkClick(e) {
+                const link = e.currentTarget;
+                const href = link.getAttribute('href');
+                
+                if (href.startsWith('http') || href.startsWith('#')) {
+                    return;
+                }
+
+                e.preventDefault();
+                this.showLoading();
+                
+                setTimeout(() => {
+                    window.location.href = href;
+                }, 1500);
+            }
+
+            showLoading() {
+                this.overlay.classList.remove('opacity-0', 'pointer-events-none');
+                this.overlay.classList.add('opacity-100');
+                
+                setTimeout(() => {
+                    this.progressBar.classList.remove('-translate-x-full');
+                    this.progressBar.classList.add('translate-x-0');
+                }, 100);
+
+                document.body.style.overflow = 'hidden';
+            }
+
+            hideLoading() {
+                this.overlay.classList.remove('opacity-100');
+                this.overlay.classList.add('opacity-0', 'pointer-events-none');
+                
+                this.progressBar.classList.remove('translate-x-0');
+                this.progressBar.classList.add('-translate-x-full');
+
+                document.body.style.overflow = '';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new PageTransition();
+            
+            // Page fade-in animation
+            const container = document.querySelector('.container');
+            const header = document.querySelector('header');
+            
+            [container, header].forEach(element => {
+                if (element) {
+                    element.style.opacity = '0';
+                    element.style.transform = 'translateY(20px)';
+                    element.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+                }
+            });
+
+            setTimeout(() => {
+                [header, container].forEach((element, index) => {
+                    if (element) {
+                        setTimeout(() => {
+                            element.style.opacity = '1';
+                            element.style.transform = 'translateY(0)';
+                        }, index * 200);
+                    }
+                });
+            }, 100);
+        });
+    </script>
+</body>
+</html>

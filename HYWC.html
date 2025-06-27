@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthWise: Your Wellness Companion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'health-green': '#4CAF50',
+                        'health-blue': '#4A90E2',
+                        'health-red': '#E24A4A',
+                        'primary-500': '#6366f1',
+                        'primary-600': '#4f46e5',
+                        'secondary-500': '#22c55e',
+                        'secondary-600': '#16a34a',
+                        'accent-500': '#f59e0b',
+                        'accent-600': '#d97706',
+                        'success-500': '#10b981',
+                        'success-600': '#059669'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans leading-relaxed">
+    <!-- Header -->
+    <header class="bg-gradient-to-br from-primary-600 via-primary-500 to-secondary-600 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-8">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-bold mb-2">
+                        HealthWise: Your Wellness Companion
+                    </h1>
+                    <p class="text-blue-100 text-lg opacity-90">
+                        Comprehensive health monitoring and wellness tracking
+                    </p>
+                </div>
+                <a href="index.html" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-6 py-3 rounded-lg transition-all duration-300 font-semibold">
+                    ← Back to Home
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 md:py-12 max-w-4xl">
+        <!-- Tool Description -->
+        <section class="mb-8">
+            <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 md:p-8">
+                <div class="flex items-center mb-6">
+                    <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center mr-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent mb-2">
+                            Welcome to HealthWise
+                        </h2>
+                        <p class="text-gray-600">Your comprehensive wellness companion</p>
+                    </div>
+                </div>
+                
+                <div class="prose max-w-none">
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        HealthWise is designed to be your personal health monitoring companion, providing 
+                        comprehensive tools and insights to help you maintain optimal wellness. Our platform 
+                        combines cutting-edge health calculations with user-friendly interfaces.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mt-8">
+                        <div class="bg-gradient-to-br from-success-500 to-success-600 text-white p-6 rounded-lg">
+                            <h3 class="text-xl font-semibold mb-3">Health Monitoring</h3>
+                            <p>Track vital health metrics and receive personalized insights based on your data.</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-primary-500 to-primary-600 text-white p-6 rounded-lg">
+                            <h3 class="text-xl font-semibold mb-3">Wellness Tracking</h3>
+                            <p>Monitor your wellness journey with comprehensive tracking and analysis tools.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation -->
+        <section>
+            <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 md:p-8">
+                <h3 class="text-xl font-bold text-gray-800 mb-6">Explore Other Tools</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <a href="prostate bmi.html" class="bg-gradient-to-r from-secondary-500 to-secondary-600 hover:from-secondary-600 hover:to-secondary-700 text-white p-4 rounded-lg transition-all duration-300 text-center font-semibold">
+                        Prostate Cancer Screening
+                    </a>
+                    <a href="toxicity1.html" class="bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700 text-white p-4 rounded-lg transition-all duration-300 text-center font-semibold">
+                        Toxicity Risk Predictor
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="fixed inset-0 bg-white bg-opacity-95 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500 ease-in-out">
+        <div class="text-center">
+            <div class="relative mb-6">
+                <div class="w-20 h-20 mx-auto bg-gradient-to-br from-primary-500 to-secondary-500 rounded-full flex items-center justify-center animate-pulse">
+                    <svg class="w-10 h-10 text-white animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                </div>
+                <div class="absolute inset-0 w-20 h-20 mx-auto border-4 border-transparent border-t-health-blue rounded-full animate-spin"></div>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Loading Health Tool</h3>
+            <p class="text-gray-600">Preparing your wellness companion...</p>
+            <div class="w-64 h-2 bg-gray-200 rounded-full mt-4 mx-auto overflow-hidden">
+                <div id="progressBar" class="h-full bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full transform -translate-x-full transition-transform duration-2000 ease-out"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Same transition script as index.html
+        class PageTransition {
+            constructor() {
+                this.overlay = document.getElementById('loadingOverlay');
+                this.progressBar = document.getElementById('progressBar');
+                this.init();
+            }
+
+            init() {
+                const navLinks = document.querySelectorAll('a[href$=".html"]');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', (e) => this.handleLinkClick(e));
+                });
+
+                window.addEventListener('pageshow', (e) => {
+                    if (e.persisted) {
+                        this.hideLoading();
+                    }
+                });
+
+                window.addEventListener('load', () => {
+                    this.hideLoading();
+                });
+            }
+
+            handleLinkClick(e) {
+                const link = e.currentTarget;
+                const href = link.getAttribute('href');
+                
+                if (href.startsWith('http') || href.startsWith('#')) {
+                    return;
+                }
+
+                e.preventDefault();
+                this.showLoading();
+                
+                setTimeout(() => {
+                    window.location.href = href;
+                }, 1500);
+            }
+
+            showLoading() {
+                this.overlay.classList.remove('opacity-0', 'pointer-events-none');
+                this.overlay.classList.add('opacity-100');
+                
+                setTimeout(() => {
+                    this.progressBar.classList.remove('-translate-x-full');
+                    this.progressBar.classList.add('translate-x-0');
+                }, 100);
+
+                document.body.style.overflow = 'hidden';
+            }
+
+            hideLoading() {
+                this.overlay.classList.remove('opacity-100');
+                this.overlay.classList.add('opacity-0', 'pointer-events-none');
+                
+                this.progressBar.classList.remove('translate-x-0');
+                this.progressBar.classList.add('-translate-x-full');
+
+                document.body.style.overflow = '';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new PageTransition();
+            
+            // Page fade-in animation
+            const main = document.querySelector('main');
+            const header = document.querySelector('header');
+            
+            [main, header].forEach(element => {
+                if (element) {
+                    element.style.opacity = '0';
+                    element.style.transform = 'translateY(20px)';
+                    element.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+                }
+            });
+
+            setTimeout(() => {
+                [header, main].forEach((element, index) => {
+                    if (element) {
+                        setTimeout(() => {
+                            element.style.opacity = '1';
+                            element.style.transform = 'translateY(0)';
+                        }, index * 200);
+                    }
+                });
+            }, 100);
+        });
+    </script>
+</body>
+</html>

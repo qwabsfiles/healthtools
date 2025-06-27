@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prostate Cancer Screening App, GHANA: Obeng et al., 2024</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': {
+                            50: '#ecfeff',
+                            100: '#cffafe', 
+                            200: '#a5f3fc',
+                            300: '#67e8f9',
+                            400: '#22d3ee',
+                            500: '#06b6d4',
+                            600: '#0891b2',
+                            700: '#0e7490',
+                            800: '#155e75',
+                            900: '#164e63'
+                        },
+                        'secondary': {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95'
+                        },
+                        'accent': {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            200: '#fed7aa',
+                            300: '#fdba74',
+                            400: '#fb923c',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                            800: '#9a3412',
+                            900: '#7c2d12'
+                        },
+                        'success': {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans leading-relaxed">
+    <!-- Header -->
+    <header class="bg-gradient-to-br from-secondary-500 via-secondary-600 to-secondary-700 text-white shadow-2xl relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <svg class="w-full h-full" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+                        <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" stroke-width="0.5"/>
+                    </pattern>
+                </defs>
+                <rect width="100" height="100" fill="url(#grid)" />
+            </svg>
+        </div>
+        
+        <div class="container mx-auto px-4 py-12 relative z-10">
+            <div class="text-center max-w-4xl mx-auto">
+                <div class="inline-flex items-center justify-center w-20 h-20 bg-white bg-opacity-20 rounded-2xl mb-6 backdrop-blur-sm">
+                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                </div>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 bg-gradient-to-r from-white to-secondary-100 bg-clip-text text-transparent">
+                    Prostate Cancer Screening
+                </h1>
+                <p class="text-secondary-100 text-xl md:text-2xl opacity-90 font-medium">
+                    GHANA: Obeng et al., 2024
+                </p>
+                <div class="mt-8 flex justify-center">
+                    <a href="index.html" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-6 py-3 rounded-full backdrop-blur-sm transition-all duration-300 font-semibold">
+                        ← Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-12 max-w-7xl">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Prostate Cancer Screening App -->
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-200 p-8 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-secondary-100 to-accent-100 rounded-full -translate-y-16 translate-x-16 opacity-50"></div>
+                
+                <div class="relative z-10">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-secondary-500 to-secondary-600 rounded-xl flex items-center justify-center mr-4">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-2xl font-bold bg-gradient-to-r from-secondary-600 to-secondary-700 bg-clip-text text-transparent">Prostate Cancer Screening</h2>
+                    </div>
+
+                    <form id="prostate-form" class="space-y-4">
+                        <div class="form-group">
+                            <label for="psa" class="block text-sm font-semibold text-slate-700 mb-2">Prostate-Specific Antigen (PSA) Level:</label>
+                            <input type="number" id="psa" placeholder="Enter PSA level" required class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bmi_cd" class="block text-sm font-semibold text-slate-700 mb-2">BMI (from BMI Calculator):</label>
+                            <input type="text" id="bmi_cd" placeholder="BMI will appear here" readonly class="w-full px-4 py-3 border border-slate-300 rounded-xl bg-slate-100 text-slate-600">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="line" class="block text-sm font-semibold text-slate-700 mb-2">Linear Weight-to-Height Ratio (from BMI Calculator):</label>
+                            <input type="text" id="line" placeholder="Ratio will appear here" readonly class="w-full px-4 py-3 border border-slate-300 rounded-xl bg-slate-100 text-slate-600">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pond" class="block text-sm font-semibold text-slate-700 mb-2">Ponderal Index (from BMI Calculator):</label>
+                            <input type="text" id="pond" placeholder="Index will appear here" readonly class="w-full px-4 py-3 border border-slate-300 rounded-xl bg-slate-100 text-slate-600">
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="form-group">
+                                <label for="age_cd" class="block text-sm font-semibold text-slate-700 mb-2">Age:</label>
+                                <select id="age_cd" class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300">
+                                    <option value="0">Select Age</option>
+                                    <option value="1"><=44</option>
+                                    <option value="2">45-54</option>
+                                    <option value="3">55-64</option>
+                                    <option value="4">65-74</option>
+                                    <option value="5">75-84</option>
+                                    <option value="6">85+</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="mar_cd" class="block text-sm font-semibold text-slate-700 mb-2">Marital Status:</label>
+                                <select id="mar_cd" class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300">
+                                    <option value="0">Single</option>
+                                    <option value="1">Married</option>
+                                    <option value="2">Divorced/Separated</option>
+                                    <option value="4">Not Stated</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="eth_cd" class="block text-sm font-semibold text-slate-700 mb-2">Ethnicity:</label>
+                                <select id="eth_cd" class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300">
+                                    <option value="1">Akan</option>
+                                    <option value="2">Ga</option>
+                                    <option value="3">Ewe</option>
+                                    <option value="4">Northern</option>
+                                    <option value="5">Other West African</option>
+                                    <option value="6">Other Non-West African African</option>
+                                    <option value="7">European/Asian/American</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="act" class="block text-sm font-semibold text-slate-700 mb-2">Occupational Activity Level:</label>
+                                <select id="act" class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300">
+                                    <option value="1">Sedentary</option>
+                                    <option value="2">Non-sedentary</option>
+                                    <option value="3">Retired/NA</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fmh" class="block text-sm font-semibold text-slate-700 mb-2">Family History of Prostate Cancer:</label>
+                                <select id="fmh" class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="alc" class="block text-sm font-semibold text-slate-700 mb-2">Alcohol Consumption:</label>
+                                <select id="alc" class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tob" class="block text-sm font-semibold text-slate-700 mb-2">Tobacco Consumption:</label>
+                                <select id="tob" class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300">
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="button" class="w-full mt-6 bg-gradient-to-r from-secondary-500 to-secondary-600 hover:from-secondary-600 hover:to-secondary-700 text-white font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" onclick="calculateProstateRisk()">
+                            Calculate Risk
+                        </button>
+                    </form>
+                    
+                    <div id="prostate-results" class="result mt-6 bg-slate-50 rounded-xl p-6">
+                        <h3 class="text-lg font-semibold text-slate-800 mb-4">Results</h3>
+                        <div class="space-y-3">
+                            <p id="probability" class="text-slate-600"></p>
+                            <p id="diagnosis" class="text-slate-600"></p>
+                            <p id="interpretation" class="text-slate-600"></p>
+                            <p id="recommendation" class="text-slate-600"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BMI Calculator -->
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-200 p-8 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary-100 to-success-100 rounded-full -translate-y-16 translate-x-16 opacity-50"></div>
+                
+                <div class="relative z-10">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center mr-4">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-2xl font-bold bg-gradient-to-r from-primary-600 to-primary-700 bg-clip-text text-transparent">BMI & Metrics Calculator</h2>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="form-group">
+                            <label for="weight" class="block text-sm font-semibold text-slate-700 mb-2">Weight (kg):</label>
+                            <input type="number" id="weight" placeholder="Enter your weight" class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="height" class="block text-sm font-semibold text-slate-700 mb-2">Height (m):</label>
+                            <input type="number" id="height" placeholder="Enter your height" step="0.01" class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300">
+                        </div>
+                        
+                        <button class="w-full bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" onclick="calculateMetrics()">
+                            Calculate Metrics
+                        </button>
+                        
+                        <div id="bmi-results" class="bg-slate-50 rounded-xl p-6"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Pop-Up -->
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500 ease-in-out">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto transform scale-95 transition-transform duration-300">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold bg-gradient-to-r from-secondary-600 to-secondary-700 bg-clip-text text-transparent">Prostate Biopsy Information</h2>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 transition-colors duration-200">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="prose max-w-none">
+                <p class="text-lg text-slate-700 mb-6">
+                    If you've been identified as high-risk or have a positive prediction for prostate cancer through the screening app, a prostate biopsy is a critical next step in confirming the diagnosis and planning your treatment.
+                </p>
+                
+                <h3 class="text-xl font-semibold text-slate-800 mb-4">1. Where Can I Have a Prostate Biopsy in Ghana?</h3>
+                <p class="text-slate-600 mb-4">Prostate biopsies are performed at major hospitals, including:</p>
+                <ul class="list-disc list-inside text-slate-600 mb-6 space-y-1">
+                    <li>Korle-Bu Teaching Hospital (KBTH), Accra</li>
+                    <li>Komfo Anokye Teaching Hospital (KATH), Kumasi</li>
+                    <li>37 Military Hospital, Accra</li>
+                    <li>Private hospitals like Medicare, Nyaho, and The Trust Hospital</li>
+                </ul>
+                
+                <h3 class="text-xl font-semibold text-slate-800 mb-4">2. What Should I Expect During a Prostate Biopsy?</h3>
+                <p class="text-slate-600 mb-4">The procedure involves taking twelve (12) pieces of prostate tissue samples to be sent to the Pathologist.</p>
+                
+                <ul class="list-disc list-inside text-slate-600 mb-6 space-y-2">
+                    <li><strong>Pre-biopsy Preparation:</strong> Antibiotics and stopping blood-thinners as instructed.</li>
+                    <li><strong>During the Procedure:</strong> Ultrasound-guided biopsy under local anesthesia.</li>
+                    <li><strong>Post-biopsy Care:</strong> Pain management and monitoring for side effects.</li>
+                </ul>
+                
+                <h3 class="text-xl font-semibold text-slate-800 mb-4">3. Cost of a Prostate Biopsy:</h3>
+                <p class="text-slate-600 mb-6">Approximately 100 USD in Ghana.</p>
+                
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button class="flex-1 bg-gradient-to-r from-slate-600 to-slate-700 hover:from-slate-700 hover:to-slate-800 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300" onclick="closeModal()">
+                        Close
+                    </button>
+                    <a href="info.html" target="_blank" class="flex-1 bg-gradient-to-r from-secondary-500 to-secondary-600 hover:from-secondary-600 hover:to-secondary-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 text-center">
+                        For Full Details, Click
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="fixed inset-0 bg-white bg-opacity-95 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500 ease-in-out">
+        <div class="text-center">
+            <div class="relative mb-6">
+                <div class="w-20 h-20 mx-auto bg-gradient-to-br from-primary-500 to-secondary-500 rounded-full flex items-center justify-center animate-pulse shadow-2xl">
+                    <svg class="w-10 h-10 text-white animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                </div>
+                <div class="absolute inset-0 w-20 h-20 mx-auto border-4 border-transparent border-t-primary-500 rounded-full animate-spin"></div>
+            </div>
+            <h3 class="text-xl font-semibold text-slate-800 mb-2">Loading Health Tool</h3>
+            <p class="text-slate-600">Preparing your wellness companion...</p>
+            <div class="w-64 h-2 bg-slate-200 rounded-full mt-4 mx-auto overflow-hidden">
+                <div id="progressBar" class="h-full bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full transform -translate-x-full transition-transform duration-2000 ease-out"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // BMI & Metrics Calculation
+        function calculateMetrics() {
+            const weight = parseFloat(document.getElementById("weight").value);
+            const height = parseFloat(document.getElementById("height").value);
+
+            if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
+                alert("Please enter valid positive numeric values for weight and height.");
+                return;
+            }
+
+            const BMI = weight / (height ** 2);
+            const Linear_W_H_Ratio = weight / height;
+            const Ponderal_Index = weight / (height ** 3);
+
+            document.getElementById("bmi_cd").value = BMI.toFixed(2);
+            document.getElementById("line").value = Linear_W_H_Ratio.toFixed(2);
+            document.getElementById("pond").value = Ponderal_Index.toFixed(2);
+
+            const resultDiv = document.getElementById("bmi-results");
+            resultDiv.innerHTML = `
+                <div class="space-y-3">
+                    <div class="bg-white rounded-lg p-4 border border-slate-200">
+                        <h4 class="font-semibold text-slate-800 mb-1">BMI</h4>
+                        <p class="text-2xl font-bold text-primary-600">${BMI.toFixed(2)} kg/m²</p>
+                    </div>
+                    <div class="bg-white rounded-lg p-4 border border-slate-200">
+                        <h4 class="font-semibold text-slate-800 mb-1">Linear Weight-to-Height Ratio</h4>
+                        <p class="text-lg font-semibold text-slate-600">${Linear_W_H_Ratio.toFixed(2)} kg/m</p>
+                    </div>
+                    <div class="bg-white rounded-lg p-4 border border-slate-200">
+                        <h4 class="font-semibold text-slate-800 mb-1">Ponderal Index</h4>
+                        <p class="text-lg font-semibold text-slate-600">${Ponderal_Index.toFixed(2)} kg/m³</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Prostate Cancer Risk Calculation
+        function calculateProstateRisk() {
+            const psa = parseFloat(document.getElementById('psa').value);
+            const age_cd = parseInt(document.getElementById('age_cd').value);
+            const mar_cd = parseInt(document.getElementById('mar_cd').value);
+            const eth_cd = parseInt(document.getElementById('eth_cd').value);
+            const act = parseInt(document.getElementById('act').value);
+            const bmi_cd = parseFloat(document.getElementById('bmi_cd').value);
+            const line = parseFloat(document.getElementById('line').value);
+            const pond = parseFloat(document.getElementById('pond').value);
+            const fmh = parseInt(document.getElementById('fmh').value);
+            const alc = parseInt(document.getElementById('alc').value);
+            const tob = parseInt(document.getElementById('tob').value);
+
+            const intercept = -12.809;
+            const beta_age = 0.003;
+            const beta_mar_cd = -0.067;
+            const beta_eth_cd = 0.073;
+            const beta_act = 0.875;
+            const beta_bmi_cd = -0.945;
+            const beta_fmh = -0.314;
+            const beta_alc = 0.399;
+            const beta_tbc = -1.142;
+            const beta_line = 0.203;
+            const beta_pond = 3.946;
+            const beta_psa = 0.002;
+
+            const log_odds = intercept +
+                (beta_age * age_cd) +
+                (beta_mar_cd * mar_cd) +
+                (beta_eth_cd * eth_cd) +
+                (beta_act * act) +
+                (beta_bmi_cd * bmi_cd) +
+                (beta_fmh * fmh) +
+                (beta_alc * alc) +
+                (beta_line * line) +
+                (beta_pond * pond) +
+                (beta_psa * psa);
+
+            const probability = Math.exp(log_odds) / (1 + Math.exp(log_odds));
+            const diagnosis = probability >= 0.4 ? "Positive" : "Negative";
+            const interpretation = probability >= 0.4
+                ? "There is a high likelihood of Prostate Cancer."
+                : "There is a low likelihood of prostate cancer.";
+            const recommendation = probability >= 0.4
+                ? "It is recommended to consult with your Urologist for further evaluation and possible prostate biopsy."
+                : "Regular monitoring is recommended. Have your PSA checked every year on your Birthdays. Adopt a healthy lifestyle.";
+
+            document.getElementById('probability').innerHTML = `<strong>Predicted Probability:</strong> ${(probability * 100).toFixed(2)}%`;
+            document.getElementById('diagnosis').innerHTML = `<strong>Diagnosis:</strong> ${diagnosis}`;
+            document.getElementById('interpretation').innerHTML = `<strong>Interpretation:</strong> ${interpretation}`;
+            document.getElementById('recommendation').innerHTML = `<strong>Recommendation:</strong> ${recommendation}`;
+
+            // Show modal for positive diagnosis
+            if (diagnosis === "Positive") {
+                const modal = document.getElementById('modal');
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                modal.classList.add('opacity-100');
+                modal.querySelector('.bg-white').classList.remove('scale-95');
+                modal.querySelector('.bg-white').classList.add('scale-100');
+            }
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.classList.remove('opacity-100');
+            modal.querySelector('.bg-white').classList.add('scale-95');
+            modal.querySelector('.bg-white').classList.remove('scale-100');
+        }
+
+        // Page transition functionality
+        class PageTransition {
+            constructor() {
+                this.overlay = document.getElementById('loadingOverlay');
+                this.progressBar = document.getElementById('progressBar');
+                this.init();
+            }
+
+            init() {
+                const navLinks = document.querySelectorAll('a[href$=".html"]');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', (e) => this.handleLinkClick(e));
+                });
+
+                window.addEventListener('pageshow', (e) => {
+                    if (e.persisted) {
+                        this.hideLoading();
+                    }
+                });
+
+                window.addEventListener('load', () => {
+                    this.hideLoading();
+                });
+            }
+
+            handleLinkClick(e) {
+                const link = e.currentTarget;
+                const href = link.getAttribute('href');
+                
+                if (href.startsWith('http') || href.startsWith('#')) {
+                    return;
+                }
+
+                e.preventDefault();
+                this.showLoading();
+                
+                setTimeout(() => {
+                    window.location.href = href;
+                }, 1500);
+            }
+
+            showLoading() {
+                this.overlay.classList.remove('opacity-0', 'pointer-events-none');
+                this.overlay.classList.add('opacity-100');
+                
+                setTimeout(() => {
+                    this.progressBar.classList.remove('-translate-x-full');
+                    this.progressBar.classList.add('translate-x-0');
+                }, 100);
+
+                document.body.style.overflow = 'hidden';
+            }
+
+            hideLoading() {
+                this.overlay.classList.remove('opacity-100');
+                this.overlay.classList.add('opacity-0', 'pointer-events-none');
+                
+                this.progressBar.classList.remove('translate-x-0');
+                this.progressBar.classList.add('-translate-x-full');
+
+                document.body.style.overflow = '';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new PageTransition();
+            
+            // Page fade-in animation
+            const container = document.querySelector('.container');
+            const header = document.querySelector('header');
+            
+            [container, header].forEach(element => {
+                if (element) {
+                    element.style.opacity = '0';
+                    element.style.transform = 'translateY(20px)';
+                    element.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+                }
+            });
+
+            setTimeout(() => {
+                [header, container].forEach((element, index) => {
+                    if (element) {
+                        setTimeout(() => {
+                            element.style.opacity = '1';
+                            element.style.transform = 'translateY(0)';
+                        }, index * 200);
+                    }
+                });
+            }, 100);
+        });
+    </script>
+</body>
+</html>
