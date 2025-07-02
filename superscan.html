@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Superscan Risk Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.3s ease-out',
+                        'pulse-slow': 'pulse 3s infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .input-focus:focus {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+        }
+        .result-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .low-risk { background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%); }
+        .moderate-risk { background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); }
+        .high-risk { background: linear-gradient(135deg, #f87171 0%, #ef4444 100%); }
+        .critical-risk { background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 via-white to-purple-50 min-h-screen font-inter">
+    <div class="container mx-auto px-4 py-6 sm:py-10">
+        <!-- Header -->
+        <div class="text-center mb-8 animate-fade-in">
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-2">
+                Superscan Risk Calculator
+            </h1>
+            <p class="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto">
+                Clinical decision support tool for bone scan imaging recommendations
+            </p>
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+                <!-- Input Form -->
+                <div class="bg-white rounded-2xl shadow-xl p-6 sm:p-8 animate-slide-up">
+                    <h2 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-6 flex items-center">
+                        <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        Patient Parameters
+                    </h2>
+                    
+                    <form class="space-y-4 sm:space-y-6" onsubmit="event.preventDefault(); predict();">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <label class="block text-sm font-medium text-gray-700">
+                                    PSA Level
+                                    <span class="text-xs text-gray-500">(ng/ml)</span>
+                                </label>
+                                <input 
+                                    id="psa" 
+                                    type="number" 
+                                    step="0.1" 
+                                    min="0"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 input-focus" 
+                                    placeholder="Enter PSA value"
+                                    required
+                                />
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <label class="block text-sm font-medium text-gray-700">
+                                    ALP Level
+                                    <span class="text-xs text-gray-500">(U/L)</span>
+                                </label>
+                                <input 
+                                    id="alp" 
+                                    type="number" 
+                                    step="0.1" 
+                                    min="0"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 input-focus" 
+                                    placeholder="Enter ALP value"
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div class="space-y-2">
+                                <label class="block text-sm font-medium text-gray-700">
+                                    DRE Risk
+                                    <span class="text-xs text-gray-500">(1-3)</span>
+                                </label>
+                                <select 
+                                    id="dre" 
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 input-focus"
+                                    required
+                                >
+                                    <option value="">Select</option>
+                                    <option value="1">1 - Low</option>
+                                    <option value="2">2 - Intermediate</option>
+                                    <option value="3">3 - High</option>
+                                </select>
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <label class="block text-sm font-medium text-gray-700">
+                                    ISUP Grade
+                                    <span class="text-xs text-gray-500">(1-5)</span>
+                                </label>
+                                <select 
+                                    id="isup" 
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 input-focus"
+                                    required
+                                >
+                                    <option value="">Select</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <label class="block text-sm font-medium text-gray-700">
+                                    D'Amico Risk
+                                    <span class="text-xs text-gray-500">(1-3)</span>
+                                </label>
+                                <select 
+                                    id="damico" 
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 input-focus"
+                                    required
+                                >
+                                    <option value="">Select</option>
+                                    <option value="1">1 - Low</option>
+                                    <option value="2">2 - Intermediate</option>
+                                    <option value="3">3 - High</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button 
+                            type="submit"
+                            class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-105 font-medium text-lg shadow-lg"
+                        >
+                            Calculate Risk
+                        </button>
+                    </form>
+                    
+                </div>
+                
+
+                <!-- Results Panel -->
+                <div class="space-y-6">
+                    <!-- Risk Score Display -->
+                    <div id="resultCard" class="bg-white rounded-2xl shadow-xl p-6 sm:p-8 hidden animate-slide-up">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                            <svg class="w-6 h-6 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                            Risk Assessment
+                        </h3>
+                        <div id="riskDisplay" class="result-card text-white p-6 rounded-xl text-center">
+                            <div class="text-3xl sm:text-4xl font-bold mb-2" id="result"></div>
+                            <div class="text-sm opacity-90" id="riskLevel"></div>
+                        </div>
+                    </div>
+
+                    <!-- Clinical Recommendations -->
+                    <div id="recommendationCard" class="bg-white rounded-2xl shadow-xl p-6 sm:p-8 hidden animate-slide-up">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                            <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                            </svg>
+                            Clinical Recommendation
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
+                                <h4 class="font-medium text-blue-800 mb-2">Suggested Action</h4>
+                                <p id="suggestedAction" class="text-blue-700 text-sm"></p>
+                            </div>
+                            <div class="bg-gray-50 border-l-4 border-gray-400 p-4 rounded">
+                                <h4 class="font-medium text-gray-800 mb-2">Net-Benefit Context</h4>
+                                <p id="netBenefit" class="text-gray-700 text-sm"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reference Information -->
+                    <div class="bg-gradient-to-r from-gray-50 to-blue-50 rounded-2xl p-6 sm:p-8">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">Clinical Thresholds</h3>
+                        <div class="space-y-2 text-sm text-gray-600">
+                            <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                                <span class="font-medium">< 20%</span>
+                                <span class="text-green-600">Low Risk</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                                <span class="font-medium">20% - 37%</span>
+                                <span class="text-yellow-600">Moderate Risk</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                                <span class="font-medium">≥ 37%</span>
+                                <span class="text-red-600">High Risk</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2">
+                                <span class="font-medium">≥ 50%</span>
+                                <span class="text-red-800">Critical Risk</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Download Section -->
+                    <div class="mt-8 pt-6 border-t border-gray-200">
+                        <h6 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            Resources
+                        </h6>
+                        
+                        <a 
+                                    href="https://docs.google.com/spreadsheets/d/1E-0JT-sfiTaDi8EgeEQ2ST8fQTq9MVnu/edit?usp=drive_link&ouid=116739462655636142985&rtpof=true&sd=true" 
+                                    class="download-link flex items-center p-3 bg-gray-50 border border-gray-200 rounded-lg hover:border-gray-300 transition-all duration-200"
+                                    download
+                                >
+                                    <div class="flex-shrink-0 w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
+                                        <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-medium text-gray-900">View Excel Version of Superscan Risk Calculator</div>
+                                        <div class="text-xs text-gray-500"> HERE </div>
+                                    </div>
+                            
+                      
+                       
+  
+   <div>
+       
+   </div>
+
+    <script>
+        // Coefficients from final logistic model (continuous)
+        const coef = {
+            intercept: -8.3247,
+            logPSA: 0.2778,
+            logALP: 1.0282,
+            DRE: 0.2456,
+            ISUP: -0.0227,
+            DAMICO: 0.135
+        };
+
+        // Threshold-based recommendations from the clinical table
+        const thresholdRecommendations = {
+            low: {
+                threshold: 0.20,
+                action: "Still conduct the bone scanning, but avoid intensive bone imaging; low likelihood of superscan",
+                netBenefit: "Model ≈ \"treat-none\" line",
+                level: "Low Risk",
+                class: "low-risk"
+            },
+            moderate: {
+                threshold: 0.37,
+                action: "Consider ALP repeat or targeted imaging",
+                netBenefit: "Small net-benefit gain",
+                level: "Moderate Risk", 
+                class: "moderate-risk"
+            },
+            high: {
+                threshold: 0.50,
+                action: "Recommend full-body bone scan ± PSMA PET; high superscan risk",
+                netBenefit: "Highest combined sensitivity & specificity",
+                level: "High Risk",
+                class: "high-risk"
+            },
+            critical: {
+                threshold: 1.0,
+                action: "Presume heavy disease; prioritise systemic therapy",
+                netBenefit: "Net benefit plateaus",
+                level: "Critical Risk",
+                class: "critical-risk"
+            }
+        };
+
+        function getRecommendation(probability) {
+            if (probability < thresholdRecommendations.low.threshold) {
+                return thresholdRecommendations.low;
+            } else if (probability < thresholdRecommendations.moderate.threshold) {
+                return thresholdRecommendations.moderate;
+            } else if (probability < thresholdRecommendations.high.threshold) {
+                return thresholdRecommendations.high;
+            } else {
+                return thresholdRecommendations.critical;
+            }
+        }
+
+        function showError(message) {
+            // Create and show error notification
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-slide-up';
+            errorDiv.innerHTML = `
+                <div class="flex items-center">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    ${message}
+                </div>
+            `;
+            document.body.appendChild(errorDiv);
+            
+            setTimeout(() => {
+                errorDiv.remove();
+            }, 3000);
+        }
+
+        function predict() {
+            const psa = parseFloat(document.getElementById("psa").value);
+            const alp = parseFloat(document.getElementById("alp").value);
+            const dre = parseFloat(document.getElementById("dre").value);
+            const isup = parseFloat(document.getElementById("isup").value);
+            const damico = parseFloat(document.getElementById("damico").value);
+
+            if (isNaN(psa) || isNaN(alp) || isNaN(dre) || isNaN(isup) || isNaN(damico)) {
+                showError("Please enter all fields correctly.");
+                return;
+            }
+
+            if (psa < 0 || alp < 0) {
+                showError("PSA and ALP values must be positive.");
+                return;
+            }
+
+            // Calculate prediction using original logic
+            const logPSA = Math.log(psa + 1);
+            const logALP = Math.log(alp + 1);
+            const logit = coef.intercept + coef.logPSA * logPSA + coef.logALP * logALP + 
+                         coef.DRE * dre + coef.ISUP * isup + coef.DAMICO * damico;
+            const prob = 1 / (1 + Math.exp(-logit));
+
+            // Get recommendation based on probability
+            const recommendation = getRecommendation(prob);
+
+            // Update result display
+            document.getElementById("result").innerText = `${(prob * 100).toFixed(1)}%`;
+            document.getElementById("riskLevel").innerText = recommendation.level;
+            
+            // Update risk display styling
+            const riskDisplay = document.getElementById("riskDisplay");
+            riskDisplay.className = `result-card text-white p-6 rounded-xl text-center ${recommendation.class}`;
+
+            // Update recommendations
+            document.getElementById("suggestedAction").innerText = recommendation.action;
+            document.getElementById("netBenefit").innerText = recommendation.netBenefit;
+
+            // Show result cards with animation
+            const resultCard = document.getElementById("resultCard");
+            const recommendationCard = document.getElementById("recommendationCard");
+            
+            resultCard.classList.remove("hidden");
+            recommendationCard.classList.remove("hidden");
+
+            // Scroll to results on mobile
+            if (window.innerWidth < 1024) {
+                resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        // Add input validation and formatting
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('input[type="number"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.value < 0) {
+                        this.value = 0;
+                    }
+                });
+            });
+
+            // Add keyboard support for form submission
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && e.target.tagName !== 'BUTTON') {
+                    predict();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
